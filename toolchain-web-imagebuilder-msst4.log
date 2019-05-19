@@ -1,0 +1,135 @@
+I0519 11:05:42.687222       8 main.go:113] Not using any credentials for target docker registry
+Creating CodeBuild inputs zip using Docker context archive at /dockercontexts/mean/docker/context.tar.gz
+Source found: "s3://prefix-stacksmith-artifacts/empty-buildspec.zip"
+Started build prefix-stacksmith-codebuild-project:20c0afff-3013-42bc-ad5c-9ad9ed887586
+[Container] 2019/05/19 11:05:58 Waiting for agent ping
+[Container] 2019/05/19 11:06:00 Waiting for DOWNLOAD_SOURCE
+[Container] 2019/05/19 11:06:01 Phase is DOWNLOAD_SOURCE
+[Container] 2019/05/19 11:06:01 CODEBUILD_SRC_DIR=/codebuild/output/src819150464/src
+[Container] 2019/05/19 11:06:01 YAML location is /codebuild/readonly/buildspec.yml
+[Container] 2019/05/19 11:06:01 No commands found for phase name: INSTALL
+[Container] 2019/05/19 11:06:01 Processing environment variables
+[Container] 2019/05/19 11:06:01 Moving to directory /codebuild/output/src819150464/src
+[Container] 2019/05/19 11:06:01 Registering with agent
+[Container] 2019/05/19 11:06:01 Phases found in YAML: 3
+[Container] 2019/05/19 11:06:01  INSTALL: 0 commands
+[Container] 2019/05/19 11:06:01  PRE_BUILD: 3 commands
+[Container] 2019/05/19 11:06:01  BUILD: 37 commands
+[Container] 2019/05/19 11:06:01 Phase complete: DOWNLOAD_SOURCE State: SUCCEEDED
+[Container] 2019/05/19 11:06:01 Phase context status code:  Message: 
+[Container] 2019/05/19 11:06:01 Entering phase INSTALL
+[Container] 2019/05/19 11:06:01 Running command echo "Installing Docker version 18 ..."
+Installing Docker version 18 ...
+
+[Container] 2019/05/19 11:06:01 Phase complete: INSTALL State: SUCCEEDED
+[Container] 2019/05/19 11:06:01 Phase context status code:  Message: 
+[Container] 2019/05/19 11:06:01 Entering phase PRE_BUILD
+[Container] 2019/05/19 11:06:01 Running command $(aws ecr get-login --region us-east-1 --no-include-email)
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+
+[Container] 2019/05/19 11:06:03 Running command if [ -n "$DOCKER_USERNAME" ]; then echo "Registry: $DOCKER_REGISTRY" && echo "User: $DOCKER_USERNAME" && docker version; fi
+
+
+[Container] 2019/05/19 11:06:03 Running command if [ -n "$DOCKER_USERNAME" ]; then docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" "$DOCKER_REGISTRY"; fi
+
+[Container] 2019/05/19 11:06:03 Phase complete: PRE_BUILD State: SUCCEEDED
+[Container] 2019/05/19 11:06:03 Phase context status code:  Message: 
+[Container] 2019/05/19 11:06:03 Entering phase BUILD
+[Container] 2019/05/19 11:06:03 Running command echo "\n\n========== BEGIN: Preparing context =========="
+
+
+
+========== BEGIN: Preparing context ==========
+
+[Container] 2019/05/19 11:06:03 Running command echo Build started on `date`
+Build started on Sun May 19 11:06:04 UTC 2019
+
+[Container] 2019/05/19 11:06:04 Running command aws s3 --only-show-errors cp "${INPUTS_ZIP}" inputs.zip
+
+[Container] 2019/05/19 11:06:04 Running command unzip inputs.zip
+Archive:  inputs.zip
+   creating: service-accounts/
+   creating: docker-context/
+  inflating: docker-context/.dockerignore  
+  inflating: docker-context/Dockerfile  
+  inflating: docker-context/README.md  
+  inflating: docker-context/docker-compose.yaml  
+  inflating: docker-context/download-example-app.sh  
+   creating: docker-context/stacksmith-provisioner/
+   creating: docker-context/stacksmith-provisioner/libs/
+  inflating: docker-context/stacksmith-provisioner/libs/helpers.sh  
+   creating: docker-context/stacksmith-provisioner/libs/systempkgs/
+  inflating: docker-context/stacksmith-provisioner/libs/systempkgs/apt.sh  
+  inflating: docker-context/stacksmith-provisioner/libs/systempkgs/functions.sh  
+  inflating: docker-context/stacksmith-provisioner/libs/systempkgs/yum.sh  
+   creating: docker-context/stacksmith-provisioner/libs/tools/
+  inflating: docker-context/stacksmith-provisioner/libs/tools/functions.sh  
+  inflating: docker-context/stacksmith-provisioner/provision  
+   creating: docker-context/stacksmith-scripts/
+  inflating: docker-context/stacksmith-scripts/boot.sh  
+  inflating: docker-context/stacksmith-scripts/build.sh  
+  inflating: docker-context/stacksmith-scripts/functions.sh  
+  inflating: docker-context/stacksmith-scripts/pre-build-hooks.sh  
+  inflating: docker-context/stacksmith-scripts/run.sh  
+   creating: docker-context/user-hooks/
+   creating: docker-context/user-scripts/
+   creating: docker-context/user-uploads/
+  inflating: docker-context/user-scripts/boot.sh  
+  inflating: docker-context/user-scripts/build.sh  
+  inflating: stacksmith-tools/stacksmith-git  
+
+[Container] 2019/05/19 11:06:04 Running command export SERVICE_ACCOUNTS=./service-accounts
+
+[Container] 2019/05/19 11:06:04 Running command export DOCKER_CONTEXT=./docker-context
+
+[Container] 2019/05/19 11:06:04 Running command export TOOLS=./stacksmith-tools
+
+[Container] 2019/05/19 11:06:04 Running command export USER_SCRIPTS="${DOCKER_CONTEXT}/user-scripts"
+
+[Container] 2019/05/19 11:06:04 Running command export USER_HOOKS="${DOCKER_CONTEXT}/user-hooks"
+
+[Container] 2019/05/19 11:06:04 Running command chmod u+x "${TOOLS}/stacksmith-git"
+
+[Container] 2019/05/19 11:06:04 Running command echo "Fetching app scripts from repository https://github.com/gamingpc1/auto..."
+Fetching app scripts from repository https://github.com/gamingpc1/auto...
+
+[Container] 2019/05/19 11:06:04 Running command export APP_SCRIPTS="$(mktemp -d)"
+
+[Container] 2019/05/19 11:06:04 Running command "${TOOLS}/stacksmith-git" fetch --url 'https://github.com/gamingpc1/auto' --ref 'Master' --dir "${APP_SCRIPTS}" > app-scripts-repo.json
+
+Error: cannot fetch repository files
+F0519 11:06:05.277676     223 root.go:35] /go/src/go.nami.run/toolchain-web/pkg/repofetcher/git.go:136: Invalid reference given: "Master"
+/go/src/go.nami.run/toolchain-web/cmd/stacksmith-git/cmd/fetch.go:63: cannot fetch repository files
+
+[Container] 2019/05/19 11:06:05 Command did not exit successfully "${TOOLS}/stacksmith-git" fetch --url 'https://github.com/gamingpc1/auto' --ref 'Master' --dir "${APP_SCRIPTS}" > app-scripts-repo.json
+ exit status 1
+[Container] 2019/05/19 11:06:05 Phase complete: BUILD State: FAILED
+[Container] 2019/05/19 11:06:05 Phase context status code: COMMAND_EXECUTION_ERROR Message: Error while executing command: "${TOOLS}/stacksmith-git" fetch --url 'https://github.com/gamingpc1/auto' --ref 'Master' --dir "${APP_SCRIPTS}" > app-scripts-repo.json
+. Reason: exit status 1
+[Container] 2019/05/19 11:06:05 Entering phase POST_BUILD
+[Container] 2019/05/19 11:06:05 Phase complete: POST_BUILD State: SUCCEEDED
+[Container] 2019/05/19 11:06:05 Phase context status code:  Message: 
+[Container] 2019/05/19 11:06:05 Expanding base directory path: .
+[Container] 2019/05/19 11:06:05 Assembling file list
+[Container] 2019/05/19 11:06:05 Expanding .
+[Container] 2019/05/19 11:06:05 Expanding artifact file paths for base directory .
+[Container] 2019/05/19 11:06:05 Assembling file list
+[Container] 2019/05/19 11:06:05 Expanding docker-inspect.json
+[Container] 2019/05/19 11:06:05 Skipping invalid artifact path docker-inspect.json
+[Container] 2019/05/19 11:06:05 Expanding pkgs_report.csv
+[Container] 2019/05/19 11:06:05 Skipping invalid artifact path pkgs_report.csv
+[Container] 2019/05/19 11:06:05 Expanding package_manager_state.tar.gz
+[Container] 2019/05/19 11:06:05 Skipping invalid artifact path package_manager_state.tar.gz
+[Container] 2019/05/19 11:06:05 Expanding app-scripts-repo.json
+[Container] 2019/05/19 11:06:05 Found 1 file(s)
+[Container] 2019/05/19 11:06:05 Phase complete: UPLOAD_ARTIFACTS State: SUCCEEDED
+[Container] 2019/05/19 11:06:05 Phase context status code:  Message: 
+Build complete
+E0519 11:06:15.080508       8 main.go:214] /go/src/go.nami.run/toolchain-web/pkg/codebuildwrapper/codebuildwrapper.go:251: Build FAILED
+/go/src/go.nami.run/toolchain-web/imagebuilder/aws_docker_builder.go:266: 
+/go/src/go.nami.run/toolchain-web/imagebuilder/main.go:196: building platform "cloud_provider_type:AWS target:DOCKER "
